@@ -1,0 +1,2 @@
+Hello this is text file 
+This file created using python scripts in notebook
