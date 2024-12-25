@@ -6,24 +6,29 @@ conn = sqlite3.connect("videos.db")
 cursor = conn.cursor()
 
 cursor.execute('''
-    CREATE TABLE IF NOT EXISTS video (
+    CREATE TABLE IF NOT EXISTS videos (
                id INTEGER PRIMARY KEY,
                name TEXT NOT NULL,
-               duration TEXT NOT NULL,
+               duration TEXT NOT NULL
             )
 ''')
 
 def list_all_videos():
-    pass
+    cursor.execute("SELECT * from videos")
+    for row in cursor.fetchall():
+        print(row)
 
 def add_video(name,time):
-    pass
+    cursor.execute("INSERT INTO videos (name,duration) VALUES (?, ?)", (name,time))
+    conn.commit()
 
 def update_video(video_id,name,time):
-    pass
+    cursor.execute("UPDATE videos SET name = ? , duration = ? WHERE id = ?", (name,time,video_id))
+    conn.commit()
 
 def delete_video(video_id):
-    pass
+    cursor.execute("DELETE FROM videos WHERE id = ?", (video_id,))
+    conn.commit()
 
 def main():
     while True:
@@ -59,6 +64,8 @@ def main():
                 break
             case _:
                 print("Invalid Choice")
+            
+    conn.close()
         
 if __name__ == "__main__":
     main()
