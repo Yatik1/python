@@ -1,4 +1,10 @@
 
+import sqlite3
+
+conn = sqlite3.connect("videos.db")
+
+cursor = conn.cursor()
+
 def list_all_videos():
     pass
 
