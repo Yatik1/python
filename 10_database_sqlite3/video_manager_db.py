@@ -5,6 +5,14 @@ conn = sqlite3.connect("videos.db")
 
 cursor = conn.cursor()
 
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS video (
+               id INTEGER PRIMARY KEY,
+               name TEXT NOT NULL,
+               duration TEXT NOT NULL,
+            )
+''')
+
 def list_all_videos():
     pass
 
