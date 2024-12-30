@@ -2,10 +2,25 @@ import requests
 
 url = "https://api.freeapi.app/api/v1/public/randomusers/user/random"
 
-try:
+def fetch_api():
     response = requests.get(url)
-    response.raise_for_status()  # Check if the request was successful
-    print(response.json())  # Print the JSON content of the response
-except requests.exceptions.RequestException as e:
-    print(f"An error occurred: {e}")
-      
+    data = response.json()
+
+    if data["success"] and "data" in data:
+        user_data = data["data"]
+        username = user_data["login"]["username"]
+        country = user_data["location"]["country"]
+
+        return username,country
+    else:
+        raise Exception("Failed to fetch data from the API")
+
+def main():
+    try:
+        username,country = fetch_api()
+        print(f"Username:{username}, \nCountry : {country}")
+    except Exception as e:
+        print(str(e))
+
+if __name__ == "__main__":
+    main()    
